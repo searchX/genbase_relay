@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GenBase</title>
+    <link rel="stylesheet" href="./assets/style.css">
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"
+            integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="icon"
+          href="./assets/logo_small.png">
+</head>
+<body>
+<section class="navbar">
+    <div class="max_width mobile_active">
+        <div class="nav_logo"><img src="./assets/logo.png" alt=""></div>
+        <ul class="nav_tab_container">
+            <li class="navs"><a href="#features">Features</a></li>
+            <li class="navs"><a href="#faq">FAQ</a></li>
+            <!-- <li class="navs"><a href="#pricing">Pricing</a></li>
+            <li class="navs"><a href="#testimonials">Testimonials</a></li> -->
+            <li class="navs buy_template"><a href="">Console</a></li>
+        </ul>
+        <div class="menu-btn" id="menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+
+    </div>
+    <div class="mobile_container">
+        <div class="nav_logo">
+            <img src="./assets/logo.png" alt="">
+            <div class="close_nav">
+                <i class="fa-solid fa-xmark "></i>
+
+            </div>
+        </div>
+        <ul class="mobile_navbar">
+            <li class="m_navs"><a href="#features">Features</a></li>
+            <!-- <li class="m_navs"><a href="#faq">FAQ</a></li>
+            <li class="m_navs"><a href="#pricing">Pricing</a></li> -->
+            <!-- <li class="m_navs"><a href="#testimonials">Testimonials</a></li> -->
+            <li class="m_navs buy_template"><a href="">Console</a></li>
+        </ul>
+    </div>
+
+</section>
+<section class="home">
+    <div class="max_width center">
+        <div class="top_container">
+            <div class="decoration_frame" data-aos="fade-up" data-aos-easing="ease-in-back"
+                 data-aos-duration="1000">
+                <span class="emojie">👋</span>
+                <span> Welcome to Genbase!</span>
+            </div>
+            
+            <div class="home_heading" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1100">
+                Create your LLM app without hosting
+                <span class="head_mark">dedicated</span> backend
+            </div>
+            <div class="sub_heading" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1200">
+                GenBase hosts a proxy that secures your API keys and exposes endpoints for clients to call your prompts securely!
+            </div>
+            
+            <div class="home_button" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-back"
+            >
+                <button class="get_start">
+                    Get Started
+                    <span class="active_get_start">
+                        <i class="fa-solid fa-circle-arrow-right"></i>
+                    </span>
+                </button>
+                <button class="demo">
+                    Watch Demo
+                    <i class="fa-solid fa-circle-play"></i>
+                </button>
+            </div>
+        </div>
+        <figure class="home_img" data-aos="flip-up" data-aos-easing="ease-in-back" data-aos-duration="600"
+                data-aos-anchor-placement="top-center">
+            <img src="assets/dashboard/img.png" alt="">
+        </figure>
+
+    </div>
+</section>
+
+<section class="features" id="features">
+    <div class="max_width center">
+        <div class="decoration_frame" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1000">
+            <span class="emojie">🔥</span>
+            <span> OUR FEATURES</span>
+        </div>
+        <div class="feature_head_container center">
+            <div class="feature_heading" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1100">
+                Discover our product's <span class="head_mark">Capabilities</span>
+            </div>
+            <div class="sub_heading" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1200">
+                Remove the need for hosting special backend for your LLM app
+            </div>
+        </div>
+        <div class="container" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1100">
+            <div class="col1 w-50">
+                <div class="emojie">
+                    ⭐️
+                </div>
+                <h3>
+                    Call OpenAI/Gemini APIs securely from your mobile app without revealing critical API keys
+                </h3>
+            </div>
+            <div class="col2 w-50" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1200">
+                <img class="w-100" src="assets/features/img.png" alt="">
+            </div>
+        </div>
+        <div class="container">
+            <div class="col2 w-50" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="800">
+                <img class="w-100" src="assets/features/img_1.png" alt="">
+                <div class="head_container">
+                    <h3>Secure</h3>
+                    <p>Uses app attestation frameworks to validate requests</p>
+                </div>
+            </div>
+            <div class="col2 w-50" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="900">
+                <img class="w-100" src="assets/features/img_2.png" alt="">
+                <div class="head_container">
+                    <h3>No-backend</h3>
+                    <p>Bypass the need for hosting special backends for simple needs</p>
+                </div>
+            </div>
+            <div class="col2 w-50" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1000">
+                <img class="w-100" src="assets/features/img_3.png" alt="">
+                <div class="head_container">
+                    <h3>All-in-one Solution</h3>
+                    <p>Manage all your API keys securely in one solution</p>
+                </div>
+            </div>
+            <div class="col2 w-50" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1100">
+                <img class="w-100" src="assets/features/img_4.png" alt="">
+                <div class="head_container">
+                    <h3>Easy Integration</h3>
+                    <p>Integrates easily with mobile SDKs for secure API calls</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="productivity mt-15 center">
+    <div class="max_width">
+        <div class="d-flex" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1000">
+            <div class="decoration_frame">
+                <span class="emojie">🤩</span>
+                <span>AND MORE...</span>
+            </div>
+        </div>
+        <div class="head_container">
+            <div class="heading" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1100">
+                Explore an array of features that elevate your <span class="head_mark">development</span> to new heights
+            </div>
+            <div class="sub_heading" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1200">
+                Discover the tools that will revolutionize the way you manage and optimize your operations
+            </div>
+        </div>
+        <div class="container">
+            <div class="card" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="800">
+                <div class="card_svg">
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="24" height="24" color="var(--token-25b49406-73f2-421a-adb7-81b18f488918, rgb(253, 242, 236))" style="width: 100%; height: 100%;">
+                        <path fill-rule="evenodd" d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2H7zm3 14a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div class="card_heading">
+                    Developers First Solution
+                </div>
+                <div class="card_sub_heading">
+                    GenBase allows you to create LLM apps without the need for hosting special backend/API servers, simplifying your development process.
+                </div>
+            </div>
+            <div class="card" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1000">
+                <div class="card_svg">
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="24" height="24" color="var(--token-25b49406-73f2-421a-adb7-81b18f488918, rgb(253, 242, 236))" style="width: 100%; height: 100%;">
+                        <path fill-rule="evenodd" d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2H7zm3 14a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div class="card_heading">
+                    Code One Platform/One Language
+                </div>
+                <div class="card_sub_heading">
+                    No need to learn multiple tech stacks or manage API development and hosting. Just code where you're comfortable and let GenBase handle the rest.
+                </div>
+            </div>
+            <div class="card" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1200">
+                <div class="card_svg">
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="24" height="24" color="var(--token-25b49406-73f2-421a-adb7-81b18f488918, rgb(253, 242, 236))" style="width: 100%; height: 100%;">
+                        <path fill-rule="evenodd" d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2H7zm3 14a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div class="card_heading">
+                    Secure Data Encryption at All Times
+                </div>
+                <div class="card_sub_heading">
+                    GenBase ensures your data is hashed and secured during relay, providing both security and ease of use.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- <section class="integration center">
+    <div class="max_width">
+        <div class="d-flex" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1000">
+            <div class="decoration_frame">
+                <span class="emojie">🛠</span>
+                <span> FAQS</span>
+            </div>
+
+        </div>
+        <div class="head_container center">
+            <div class="heading" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1100">
+                Enable <span class="head_mark">integration</span> with other popular tools and platforms
+            </div>
+            <div class="sub_heading" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1200">
+                Seamlessly connect and amplify your workflow by enabling integration with a diverse array of widely-used
+                tools and platforms.
+            </div>
+        </div>
+        <figure class="integration_img" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1200">
+            <img class="w-100" src="assets/integration/img.png" alt="">
+        </figure>
+    </div>
+</section> -->
+
+<section class="qna center" id="faq">
+    <div class="max_width">
+        <div class="top_container">
+            <div class="d-flex" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1000">
+                <div class="decoration_frame">
+                    <span class="emojie">🛠</span>
+                    <span> FAQS</span>
+                </div>
+
+            </div>
+            <div class="head_container">
+                <div class="heading" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1200">
+                    Need <span class="head_mark"> <br>
+                Answers?
+            </span>
+                </div>
+                <div class="sub_heading">
+                    Check out our most commonly asked questions below to find the information you need.
+                </div>
+            </div>
+        </div>
+        <div class="qna_container" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1200">
+            <div class="question">
+                <div class="heading">
+                    <h1>What is GenBase and what does it offer?</h1>
+                    <div class="q_plus" data-id="1">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <div class="answer">
+                    GenBase is a backend-less solution for creating LLM apps. It removes the need for hosting special backend/API servers for making inferences to large language model services like Gemini, OpenAI, and more.
+                </div>
+            </div>
+            <div class="question">
+                <div class="heading">
+                    <h1>How does GenBase compare to other solutions?</h1>
+                    <div class="q_plus" data-id="2">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <div class="answer">
+                    GenBase to LLMs is what Firebase is to mobile developers. It manages all your API keys in one solution, allowing your app to call/infer any API on demand securely.
+                </div>
+            </div>
+            <div class="question">
+                <div class="heading">
+                    <h1>What are the benefits of using GenBase?</h1>
+                    <div class="q_plus" data-id="3">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <div class="answer">
+                    GenBase integrates easily with mobile SDKs, giving them the power to call inference without exposing platform-specific API keys. It streamlines the process of working with large language models, making it accessible and secure.
+                </div>
+            </div>
+            <div class="question">
+                <div class="heading">
+                    <h1>Can I use GenBase on different devices and platforms?</h1>
+                    <div class="q_plus" data-id="4">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <div class="answer">
+                    Yes, GenBase offers cross-platform compatibility, allowing you to access and use it seamlessly on various devices and platforms.
+                </div>
+            </div>
+            <div class="question">
+                <div class="heading">
+                    <h1>How secure is GenBase for managing API keys and inferences?</h1>
+                    <div class="q_plus" data-id="5">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <div class="answer">
+                    Your data's security is a top priority. GenBase employs robust data encryption and follows industry best practices to ensure your sensitive information and API keys are safe and protected.
+                </div>
+            </div>
+        </div>        
+    </div>
+</section>
+<!-- <section class="pricing center" id="pricing">
+    <div class="max_width center">
+        <div class="decoration_frame">
+            <span class="emojie">🛠</span>
+            <span> INTEGRATIONS</span>
+        </div>
+        <div class="head_container center">
+            <h1 data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="800">
+                Select your ideal <span class="head_mark">
+                Pricing
+            </span>
+                plan
+            </h1>
+            <div class="sub_heading">
+                At Manage Wise, we believe in providing you with pricing plans that adapt to your unique needs.
+            </div>
+        </div>
+        <div class="pricing_container">
+            <div class="price_card" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1000">
+                <div class="top_container">
+                    <div class="label">
+                        free
+                    </div>
+                    <div class="price_head">
+                        <span>$0</span>
+                        /month
+                    </div>
+                    <ul class="benefits">
+                        <li class="ben_nav"><i class="fa-solid fa-check"></i>
+                            <span>
+                        Access to all basic features
+                    </span></li>
+                        <li class="ben_nav"><i class="fa-solid fa-check"></i>
+                            <span>
+Reporting and analytics                    </span></li>
+                        <li class="ben_nav"><i class="fa-solid fa-check"></i>
+                            <span>
+Up to 5 individual users
+                    </span></li>
+                        <li class="ben_nav"><i class="fa-solid fa-check"></i>
+                            <span>
+Chat and email support
+                    </span></li>
+
+                    </ul>
+                </div>
+                <div class="bottom_container">
+                    <button>get Started</button>
+                </div>
+            </div>
+            <div class="price_card price-active" data-aos="fade-up" data-aos-easing="ease-in-back"
+                 data-aos-duration="800">
+                <div class="top_container">
+                    <div class="label">
+                        Standard
+                    </div>
+                    <div class="price_head">
+                        <span>$25</span>
+                        /month
+                    </div>
+                    <ul class="benefits">
+                        <li class="ben_nav"><i class="fa-solid fa-check"></i>
+                            <span>
+                        Access to all basic features
+                    </span></li>
+                        <li class="ben_nav"><i class="fa-solid fa-check"></i>
+                            <span>
+Reporting and analytics
+                    </span></li>
+                        <li class="ben_nav"><i class="fa-solid fa-check"></i>
+                            <span>
+Up to 5 individual users
+                    </span></li>
+                        <li class="ben_nav"><i class="fa-solid fa-check"></i>
+                            <span>
+Chat and email support
+                    </span></li>
+                        <li class="ben_nav"><i class="fa-solid fa-check"></i>
+                            <span>
+3+ integrations
+                    </span></li>
+                        <li class="ben_nav"><i class="fa-solid fa-check"></i>
+                            <span>
+Account performance reporting
+                    </span></li>
+
+                    </ul>
+                </div>
+                <div class="bottom_container">
+                    <button>get Started</button>
+                </div>
+            </div>
+            <div class="price_card" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1200">
+                <div class="top_container">
+                    <div class="label">
+                        Business
+                    </div>
+                    <div class="price_head">
+                        <span>$42</span>
+                        /month
+                    </div>
+                    <ul class="benefits">
+                        <li class="ben_nav"><i class="fa-solid fa-check"></i>
+                            <span>Access to all basic features
+                    </span></li>
+                        <li class="ben_nav"><i class="fa-solid fa-check"></i>
+                            <span>Reporting and analytics
+                    </span></li>
+                        <li class="ben_nav"><i class="fa-solid fa-check"></i>
+                            <span>Up to 5 individual users
+                    </span></li>
+                        <li class="ben_nav"><i class="fa-solid fa-check"></i>
+                            <span>Chat and email support
+                    </span></li>
+                        <li class="ben_nav"><i class="fa-solid fa-check"></i>
+                            <span>3+ integrations</span></li>
+
+                    </ul>
+                </div>
+                <div class="bottom_container">
+                    <button>get Started</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section> -->
+<!-- <section class="testimonials center" id="testimonials">
+    <div class="max_width">
+        <div class="d-flex">
+            <div class="decoration_frame">
+                <span class="emojie">🧡</span>
+                <span> TESTIMONIALS</span>
+            </div>
+
+        </div>
+        <div class="head_container">
+            <div class="heading" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-duration="1000">
+                Hear from our <span class="head_mark">Satisfied</span> clients
+            </div>
+            <div class="sub_heading">Discover why our clients love working with us. Read their testimonials and learn
+                how we has helped businesses.
+            </div>
+        </div>
+        <swiper-container slides-per-view="3"
+                          speed="100"
+                          loop="true"
+                          css-mode="true"
+                          autoplay="true"
+                          spaceBetween="20px"
+                          class="testimonials_container"
+                          init="false"
+        >
+            <swiper-slide class="testimonials_card swiper-slide">
+                <div class="heading">
+                    "Manage Wise transformed our team's productivity. The intuitive interface and powerful features have
+                    made a significant impact on our daily operations"
+                </div>
+                <div class="profile">
+                    <img src="https://framerusercontent.com/images/PIlOZWlmobm4uLtBhKFfw7HS4.jpg"/>
+                    <div class="profile_head">
+                        <div class="heading">
+                            Alex
+                        </div>
+                        <div class="p_sub_heading">
+                            Freelancer
+                        </div>
+
+                    </div>
+                </div>
+            </swiper-slide>
+            <swiper-slide class="testimonials_card swiper-slide">
+                <div class="heading">
+                    "Manage Wise transformed our team's productivity. The intuitive interface and powerful features have
+                    made a significant impact on our daily operations"
+                </div>
+                <div class="profile">
+                    <img src="https://framerusercontent.com/images/PIlOZWlmobm4uLtBhKFfw7HS4.jpg"/>
+                    <div class="profile_head">
+                        <div class="heading">
+                            Alex
+                        </div>
+                        <div class="p_sub_heading">
+                            Freelancer
+                        </div>
+
+                    </div>
+                </div>
+            </swiper-slide>
+            <swiper-slide class="testimonials_card swiper-slide">
+                <div class="heading">
+                    "Manage Wise transformed our team's productivity. The intuitive interface and powerful features have
+                    made a significant impact on our daily operations"
+                </div>
+                <div class="profile">
+                    <img src="https://framerusercontent.com/images/PIlOZWlmobm4uLtBhKFfw7HS4.jpg"/>
+                    <div class="profile_head">
+                        <div class="heading">
+                            Alex
+                        </div>
+                        <div class="p_sub_heading">
+                            Freelancer
+                        </div>
+
+                    </div>
+                </div>
+            </swiper-slide>
+            <swiper-slide class="testimonials_card swiper-slide">
+                <div class="heading">
+                    "Manage Wise transformed our team's productivity. The intuitive interface and powerful features have
+                    made a significant impact on our daily operations"
+                </div>
+                <div class="profile">
+                    <img src="https://framerusercontent.com/images/PIlOZWlmobm4uLtBhKFfw7HS4.jpg"/>
+                    <div class="profile_head">
+                        <div class="heading">
+                            Alex
+                        </div>
+                        <div class="p_sub_heading">
+                            Freelancer
+                        </div>
+
+                    </div>
+                </div>
+            </swiper-slide>
+            <swiper-slide class="testimonials_card swiper-slide">
+                <div class="heading">
+                    "Manage Wise transformed our team's productivity. The intuitive interface and powerful features have
+                    made a significant impact on our daily operations"
+                </div>
+                <div class="profile">
+                    <img src="https://framerusercontent.com/images/PIlOZWlmobm4uLtBhKFfw7HS4.jpg"/>
+                    <div class="profile_head">
+                        <div class="heading">
+                            Alex
+                        </div>
+                        <div class="p_sub_heading">
+                            Freelancer
+                        </div>
+
+                    </div>
+                </div>
+            </swiper-slide>
+        </swiper-container>
+    </div>
+</section> -->
+<section class="potentials center">
+    <div class="max_width" data-aos="flip-up" data-aos-easing="ease-in-back" data-aos-duration="1200"
+         data-aos-anchor-placement="top-center">
+        <div class="d-flex">
+            <div class="decoration_frame">
+                <span class="emojie">👋</span>
+                <span> DON'T MISS OUT
+                </span>
+            </div>
+        </div>
+        <div class="container d-flex">
+            <div class="head_container">
+                <div class="heading">
+                    Unleash your
+                    <span class="head_mark">Potential</span>
+                    with us
+                </div>
+                <div class="sub_heading tl">Use our platform to create your LLM app without the need for dedicated
+                    backend
+                </div>
+                <button class="try_out">
+                    Try out now
+                    <span class="active_get_start">
+                        <i class="fa-solid fa-circle-arrow-right"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="potential_img">
+                <div class="title">
+                    <span>Join</span>
+                    our Community
+                </div>
+                <figure>
+                    <img class="w-100"
+                         src="https://framerusercontent.com/images/S4kVG1FFzSqxr8zOqpvJRfsBad0.png?scale-down-to=1024"
+                         alt="">
+                    <div class="img_bg"></div>
+                </figure>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="footer_nav center">
+    <div class="max_width">
+        <div class="top_container">
+            <figure><img src="assets/logo.png" alt=""></figure>
+            <ul class="footer_nav_list">
+                <li class="footer_li_nav">Features</li>
+                <li class="footer_li_nav">FAQ</li>
+                <!-- <li class="footer_li_nav">Pricing</li>
+                <li class="footer_li_nav">Testimonials</li> -->
+            </ul>
+        </div>
+        <div class="bottom_container">
+            <div class="footer_logo">
+                © 2024 Neurotask AI, Inc.
+            </div>
+            <ul class="footer_socials">
+                <li>
+                    <img class="w-100" src="assets/footer/instagram-logo-fill-svgrepo-com.svg" alt="">
+                </li>
+                <li>
+                    <img class="w-100" src="assets/footer/twitter.png" alt="">
+                </li>
+                <li>
+                    <img class="w-100" src="assets/footer/linked.png" alt="">
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+<script>
+    let ques = document.getElementsByClassName("question");
+    Array.from(ques).forEach(function (element) {
+        element.addEventListener('click', (e) => {
+            element.classList.toggle('qna-active')
+        });
+    });
+</script>
+<script>
+    AOS.init();
+</script>
+<script>
+    const swiperEl = document.querySelector('.testimonials_container');
+
+    // swiper parameters
+    const swiperParams = {
+        slidesPerView: 1,
+        breakpoints: {
+
+            0: {
+                slidesPerView: 1,
+
+            },
+            640: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            },
+        },
+        on: {
+            init() {
+                // ...
+            },
+        },
+    };
+
+    // now we need to assign all parameters to Swiper element
+    Object.assign(swiperEl, swiperParams);
+
+    // and now initialize it
+    swiperEl.initialize();
+
+    let menu_btn = document.getElementById("menu-btn")
+    let menu = document.querySelector(".mobile_container")
+    let close_nav = document.querySelector(".close_nav")
+    // // menu toggle button
+    let active = false;
+    menu_btn.addEventListener('click', () => {
+        menu.classList.toggle('active');
+        document.querySelector('#menu-btn').classList.toggle('active');
+
+    });
+
+    close_nav.addEventListener('click', () => {
+        menu.classList.toggle('active');
+        document.querySelector('#menu-btn').classList.toggle('active');
+
+    })
+</script>
+<script>
+</script>
+</body>
+</html>

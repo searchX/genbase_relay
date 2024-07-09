@@ -1,0 +1,49 @@
+datasource db {
+  // could be postgresql or mysql
+  provider = "sqlite"
+  url      = "file:dev.db"
+}
+
+generator db {
+  provider             = "prisma-client-py"
+  interface            = "asyncio"
+  recursive_type_depth = 5
+}
+
+model User {
+  id          String      @id @default(cuid())
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
+  first_name  String
+  last_name   String
+  email       String      @unique()
+  password    String
+  is_active   Boolean     @default(true)
+  is_verified Boolean     @default(true)
+  projects    Projects[]
+  keystores   keystores[]
+}
+
+model Projects {
+  id          String   @id @default(cuid())
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  name        String
+  description String
+  user        User     @relation(fields: [user_id], references: [id])
+  user_id     String
+  project_key String   @unique
+}
+
+model keystores {
+  id           String   @id @default(cuid())
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+  name         String
+  description  String
+  user         User     @relation(fields: [user_id], references: [id])
+  user_id      String
+  organisation String
+  is_active    Boolean  @default(true)
+  key          String
+}

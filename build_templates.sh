@@ -1,0 +1,1 @@
+cd client && npx vite build --base=/dashboard && cd .. && mkdir -p templates/console && cp -r client/dist/* templates/console
