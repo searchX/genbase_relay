@@ -2,3 +2,6 @@ fastapi
 openai
 prisma
 fastapi_mail
+bcrypt
+python-jose
+itsdangerous
