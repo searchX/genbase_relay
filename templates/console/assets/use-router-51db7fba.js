@@ -1,1 +1,0 @@
-import{af as r,r as o}from"./index-ed4e287f.js";function s(){const e=r();return o.useMemo(()=>({back:()=>e(-1),forward:()=>e(1),reload:()=>window.location.reload(),push:a=>e(a),replace:a=>e(a,{replace:!0})}),[e])}export{s as u};

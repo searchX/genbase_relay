@@ -1,0 +1,1 @@
+import{j as r,W as t}from"./index-082850f8.js";import{P as e}from"./active-loads-view-5263e9ef.js";import"./TextField-6b78eb54.js";import"./CircularProgress-81190730.js";function m(){return r.jsxs(r.Fragment,{children:[r.jsx(t,{children:r.jsx("title",{children:" Projects  "})}),r.jsx(e,{})]})}export{m as default};
