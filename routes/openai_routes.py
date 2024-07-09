@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from openai import OpenAI
-
+import requests
 from controller.authenication import get_current_user
 from pydantic_models.openai_models import ChatCompletion
 from pydantic_models.user_auth import SystemUser
@@ -35,3 +35,13 @@ async def openai_chat_completion(data: dict):
     )
     print(data)
     return response
+
+
+@app.post("/proxy")
+async def proxy(data: dict):
+    print(data)
+    response = requests.post('https://api.openai.com/v1' + data['endpoint'], headers={
+        "Content-Type": "application/json",
+        "Authorization": "Add the api key here"
+    }, json=data['body'])
+    return response.json()
