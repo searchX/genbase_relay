@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from typing import Union, Any, Optional, Dict
 
 import bcrypt
-from fastapi import HTTPException
+from fastapi import HTTPException, Header
 from jose import jwt
 import bcrypt
 from dotenv import load_dotenv
@@ -15,14 +15,14 @@ from itsdangerous import URLSafeTimedSerializer, BadTimeSignature, SignatureExpi
 from pydantic import EmailStr
 
 from database.engine import db
-from pydantic_models.user_auth import SystemUser, TokenPayload
+from pydantic_models.user_auth import SystemUser, TokenPayload, ReturnProjectKey
 from utils.contants import ACCESS_TOKEN_EXPIRE_MINUTES, ALGORITHM, JWT_SECRET_KEY, JWT_REFRESH_SECRET_KEY, \
     REFRESH_TOKEN_EXPIRE_MINUTES
 from datetime import datetime
 from typing import Union, Any
 
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordBearer, APIKeyHeader, HTTPAuthorizationCredentials, HTTPBearer
 from jose import jwt
 from pydantic import ValidationError
 
@@ -63,7 +63,7 @@ async def get_current_user(token: str = Depends(reuseable_oauth)) -> SystemUser:
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Could not find user",
         )
-    
+
     return SystemUser(**dict(user))
 
 
@@ -72,25 +72,13 @@ async def get_user(email):
         'email': email})
 
 
-def token(email: EmailStr):
-    _token = token_algo.dumps(email)
-    return _token
-
-
-def verify_token(_token: str):
-    try:
-        email = token_algo.loads(_token, max_age=1800)
-    except SignatureExpired:
-        return None
-    except BadTimeSignature:
-        return None
-    except Exception:
-        return None
-    return {'email': email, 'check': True}
+async def get_project(id):
+    return await db.projects.find_unique(where={
+        "id": id
+    })
 
 
 async def create_user(user):
-    _token = token(user.email)
     if await db.user.find_unique(where={'email': user.email}):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -107,6 +95,42 @@ async def create_user(user):
         'email': user.email,
         'status': 'User Created',
     }
+
+
+security = HTTPBearer()
+
+
+async def get_project_key(token: HTTPAuthorizationCredentials = Depends(security)) -> ReturnProjectKey:
+    token_str = token.credentials  # Get the actual token string
+    print(token_str)
+    try:
+        payload = jwt.decode(
+            token_str, JWT_SECRET_KEY, algorithms=[ALGORITHM]
+        )
+        token_data = TokenPayload(**payload)
+
+        if datetime.fromtimestamp(token_data.exp) < datetime.now():
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Token expired",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+
+    except (jwt.JWTError, ValidationError):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Could not validate credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    print(token_data)
+    project: Union[dict[str, Any], None] = await get_project(token_data.sub)
+    if project is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Could not find project",
+        )
+
+    return ReturnProjectKey(**dict(project))
 
 # config = ConnectionConfig(
 #     MAIL_USERNAME=os.getenv('MAIL_USER_NAME'),
@@ -148,3 +172,21 @@ async def create_user(user):
 #             'project_name': os.getenv('PROJECT_NAME'),
 #             'url': email_verification_endpoint
 #         }, template='email/email_verification.html'))
+
+
+# def token(email: EmailStr):
+#     _token = token_algo.dumps(email)
+#     return _token
+#
+#
+# def verify_token(_token: str):
+#     try:
+#         email = token_algo.loads(_token, max_age=1800)
+#     except SignatureExpired:
+#         return None
+#     except BadTimeSignature:
+#         return None
+#     except Exception:
+#         return None
+#     return {'email': email, 'check': True}
+#

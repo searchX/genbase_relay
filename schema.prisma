@@ -25,14 +25,16 @@ model User {
 }
 
 model Projects {
-  id          String   @id @default(cuid())
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
-  name        String
-  description String
-  user        User     @relation(fields: [user_id], references: [id])
-  user_id     String
-  project_key String   @unique
+  id           String   @id @default(cuid())
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+  name         String
+  description  String
+  user         User     @relation(fields: [user_id], references: [id])
+  user_id      String
+  project_key  String   @unique
+  organisation String
+  key          String
 }
 
 model keystores {

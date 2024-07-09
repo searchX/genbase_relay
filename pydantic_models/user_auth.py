@@ -10,7 +10,6 @@ class UserAuth(BaseModel):
     last_name: str
 
 
-
 class TokenSchema(BaseModel):
     access_token: str
     refresh_token: str
@@ -29,5 +28,10 @@ class UserOut(BaseModel):
 class SystemUser(UserOut):
     password: str
 
-class ProductAuth(BaseModel):
+
+class ProjectAuth(BaseModel):
     project_key: str
+
+
+class ReturnProjectKey(ProjectAuth):
+    key: str

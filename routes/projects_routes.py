@@ -15,7 +15,6 @@ app = APIRouter(
 )
 
 
-#
 @app.post('/add-project')
 async def add_project(data: ProjectSetup, user: SystemUser = Depends(get_current_user)):
     unique_key = str(uuid.uuid4())
@@ -23,7 +22,9 @@ async def add_project(data: ProjectSetup, user: SystemUser = Depends(get_current
         'name': data.name,
         'description': data.description,
         'user_id': user.id,
-        'project_key': unique_key
+        'project_key': unique_key,
+        'organisation': data.organisation,
+        'key': data.key
     })
     return {
         "message": "Project added successfully. Rememeber to Store this in safe place as it can't be retrieve again if lost",

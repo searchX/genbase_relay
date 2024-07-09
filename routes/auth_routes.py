@@ -2,7 +2,7 @@ from fastapi import status, HTTPException, Depends, APIRouter, BackgroundTasks
 from fastapi.security import OAuth2PasswordRequestForm
 from controller.authenication import create_user, get_current_user, get_user
 from database.engine import db
-from pydantic_models.user_auth import UserAuth, SystemUser, UserOut, ProductAuth
+from pydantic_models.user_auth import UserAuth, SystemUser, UserOut, ProjectAuth
 from utils.utils import create_access_token, create_refresh_token, verify_password, get_hashed_password
 
 app = APIRouter(tags=['Authentication'])
@@ -54,7 +54,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
 
 
 @app.post('/project/auth/login')
-async def project_login(data: ProductAuth):
+async def project_login(data: ProjectAuth):
     data = await db.projects.find_unique(where={'project_key': data.project_key})
     if data is None:
         raise HTTPException(
