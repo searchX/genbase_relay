@@ -23,8 +23,10 @@ html {
 }
 
 :root {
-    --orange: rgb(254, 129, 98);
-    --purple: #8247ff;
+    /*--orange: rgb(254, 129, 98);*/
+    --orange: rgb(0 99 219);
+    /*--purple: #8247ff;*/
+    --purple: #2f2544;
     --inter: 'Inter', sans-serif;
     --outfit: 'Outfit', sans-serif;
 }
@@ -86,7 +88,8 @@ html {
 
 
 .navbar .nav_tab_container .buy_template {
-    background: #fff;
+    /*background: #fff;*/
+    background: #000;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
     padding: 1rem 1.5rem;
     border: 1px solid #EDEDFA;
@@ -97,6 +100,10 @@ html {
     font-size: 18px;
 }
 
+
+.navbar .nav_tab_container .buy_template a {
+    color: #EDEDFA;
+}
 
 .navbar .nav_tab_container .buy_template:hover {
     transition: all 300ms ease-in;
@@ -267,7 +274,10 @@ html {
 
 .features .container .col2 {
     border-radius: 20px;
-
+display: flex;
+flex-direction: column;
+    align-items: center;
+    justify-content: end;
     box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 }
 
@@ -333,9 +343,10 @@ html {
 .productivity .card .card_svg {
     padding: 1rem;
     background: var(--purple);
-    width: 6rem;
+    min-width: 6rem;
     border-radius: 15px;
     margin-bottom: 1rem;
+    display: flex;
 }
 
 .productivity .card .card_heading {
