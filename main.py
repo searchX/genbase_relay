@@ -58,10 +58,6 @@ async def serve_spa(request: Request):
 # ----- Mount paths for landing page only ----- #
 app.mount("/assets", StaticFiles(directory="templates/landing/assets"), name="assets")
 
-@app.get("/landing")
-async def serve_spa(request: Request):
-    return templates.TemplateResponse("landing/index.html", {"request": request})
-
 @app.get("/script.js")
 async def serve_spa(request: Request):
     return templates.TemplateResponse("landing/script.js", {"request": request})
@@ -69,6 +65,11 @@ async def serve_spa(request: Request):
 @app.get("/style.css")
 async def serve_spa(request: Request):
     return templates.TemplateResponse("landing/style.css", {"request": request})
+
+
+@app.route("/{full_path:path}")
+async def catch_all(request: Request):
+    return templates.TemplateResponse("landing/index.html", {"request": request})
 
 if __name__ == "__main__":
     import uvicorn
