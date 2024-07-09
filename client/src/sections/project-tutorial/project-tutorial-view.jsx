@@ -3,6 +3,7 @@ import { Box, Card, CardContent, Container, Link, Tab, Tabs, Typography } from '
 import { styled } from '@mui/system';
 import { Highlight, Prism, themes } from 'prism-react-renderer';
 import PropTypes from 'prop-types';
+import { baseUrl } from 'src/utils/apis';
 
 const darkula_theme = themes.dracula;
 
@@ -12,7 +13,7 @@ const codeSnippets = {
   import 'package:genbase/genbase.dart';
   
   final _genbase = Genbase(); // create instance
-  
+  _genbase.base_url='$currUrl'
   _genbase.project_key='$projectid'
   `,
 };
@@ -31,7 +32,8 @@ const CodeContainer = styled(Box)(({ theme }) => ({
 }));
 
 const CodeSnippet = ({ language, code, project_id }) => {
-  const edited_code = code.replace('$projectid', project_id.project_id);
+  const edited_code = code.replace('$projectid', project_id.project_id).replace('$currUrl', baseUrl);
+
   return (
     <Highlight {...Prism.defaultProps} theme={darkula_theme} code={edited_code} language="tsx">
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
