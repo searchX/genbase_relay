@@ -12,16 +12,18 @@ export const AddProject = (data) => async dispatch => {
   const project_name = data.project_information.project_name;
   const project_description = data.project_information.project_description;
 
-  await setAddKey({
-    name: `${project_name} - ${key_type}`,
-    description: 'Quick key generated',
-    organisation: key_type,
-    key: key_value,
-  });
+  // await setAddKey({
+  //   name: `${project_name} - ${key_type}`,
+  //   description: 'Quick key generated',
+  //   organisation: key_type,
+  //   key: key_value,
+  // });
 
   await setAddProject({
     name: project_name,
     description: project_description,
+    organisation: key_type,
+    key: key_value,
   });
 
   dispatch(getprojectsLoaded());

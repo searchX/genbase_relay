@@ -5,3 +5,4 @@ fastapi_mail
 bcrypt
 python-jose
 itsdangerous
+fastapi-analytics

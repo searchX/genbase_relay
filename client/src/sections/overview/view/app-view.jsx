@@ -59,7 +59,7 @@ export default function AppView() {
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="Total API Calls"
-            total="84"
+            total="-"
             color="info"
             icon={
               <StyledCard>
@@ -75,7 +75,7 @@ export default function AppView() {
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="Total Sessions"
-            total="5"
+            total="-"
             color="warning"
             icon={<StyledCard>
               <SvgColor sx={{
@@ -89,7 +89,7 @@ export default function AppView() {
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="Total Approx Tokens"
-            total={4789}
+            total="-"
             color="error"
             icon={<StyledCard>
               <SvgColor sx={{

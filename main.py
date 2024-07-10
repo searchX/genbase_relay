@@ -1,4 +1,5 @@
 import asyncio
+import os
 from typing import List
 
 from dotenv import load_dotenv
@@ -17,7 +18,6 @@ from utils.utils import verify_model, OPENAI_MODEL
 
 load_dotenv()
 
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await db.connect()
@@ -26,6 +26,9 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
+from api_analytics.fastapi import Analytics
+app.add_middleware(Analytics, api_key=os.getenv("ANALYTICS_API_KEY"))  # Add middleware
 
 origins = ["*"]
 

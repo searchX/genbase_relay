@@ -17,11 +17,11 @@ const navConfig = [
     path: '/projects',
     icon: icon('ic--baseline-queue'),
   },
-  {
-    title: 'Settings',
-    path: '/settings',
-    icon: icon('ic--baseline-settings-suggest'),
-  },  // }
+  // {
+  //   title: 'Settings',
+  //   path: '/settings',
+  //   icon: icon('ic--baseline-settings-suggest'),
+  // },  // }
 ];
 
 export default navConfig;
