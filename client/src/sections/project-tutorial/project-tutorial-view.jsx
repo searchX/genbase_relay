@@ -11,10 +11,12 @@ const codeSnippets = {
   dart: `
   // Import the GenBase package
   import 'package:genbase/genbase.dart';
-  
-  final _genbase = Genbase(); // create instance
-  _genbase.base_url='$currUrl'
-  _genbase.project_key='$projectid'
+
+  Genbase.projectKey = '$projectid';
+  Genbase.baseUrl = '$currUrl';
+  await Genbase.initialize();
+
+  // Call the API
   `,
 };
 
