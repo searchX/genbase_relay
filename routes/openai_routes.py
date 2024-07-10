@@ -40,8 +40,18 @@ client = OpenAI()
 
 @app.post("/proxy")
 async def proxy(data: dict, project=Depends(get_project_key)):
-    response = requests.post('https://api.openai.com/v1' + data['endpoint'], headers={
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {project.key}"
-    }, json=data['body'])
-    return response.json()
+    if data['method'] == 'POST':
+        response = requests.post('https://api.openai.com/v1' + data['endpoint'], headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {project.key}"
+        }, json=data['body'])
+        return response.json()
+    elif data['method'] == 'GET':
+        response = requests.get('https://api.openai.com/v1' + data['endpoint'], headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {project.key}"
+        })
+        return response.json()
+    return {
+        "message": "Method not supported"
+    }
