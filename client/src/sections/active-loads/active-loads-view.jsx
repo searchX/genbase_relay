@@ -64,12 +64,6 @@ export default function ProjectView({ setProjectId }) {
     setSelected(-1);
   };
 
-  const handleClick = (event, index) => {
-    // Get that projectid data
-    setProjectId(projectsLoaded[index].project_key);
-    setSelected(index);
-  };
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -84,6 +78,12 @@ export default function ProjectView({ setProjectId }) {
     comparator: getComparator(order, orderBy),
     filterName,
   });
+
+  const handleClick = (event, index) => {
+    // Get that projectid data
+    setProjectId(dataFiltered[index].project_key);
+    setSelected(index);
+  };
 
 
   const notFound = !dataFiltered.length && !!filterName;
