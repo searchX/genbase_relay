@@ -1,45 +1,33 @@
-from fastapi import APIRouter, Depends
-from openai import OpenAI
 import requests
-from controller.authenication import get_current_user, get_project_key
-from pydantic_models.openai_models import ChatCompletion
-from pydantic_models.user_auth import SystemUser
+from fastapi import APIRouter, Depends
+
+from controller.authenication import get_project_key
 
 app = APIRouter(
     tags=['Open Ai']
 )
-client = OpenAI()
-
-
-#
-# @app.post("/chat/completion")
-# async def openai_chat_completion(data: ChatCompletion, user: SystemUser = Depends(get_current_user)):
-#     print(data)
-#     model = data.model
-#     messages = data.messages
-#     # response_format = {"type": "json_object"} if data.json_mode else None
-#     # if verify_model(OPENAI_MODEL, model) != model:
-#     #     raise HTTPException(status_code=400, detail="Model verification failed")
-#
-#     response = client.chat.completions.create(
-#         model=model,
-#         messages=messages
-#     )
-#     return response
-#
-#
-# @app.post("/v1/chat/completions")
-# async def openai_chat_completion(data: dict):
-#     response = client.chat.completions.create(
-#         model=data['model'],
-#         messages=data['messages']
-#     )
-#     print(data)
-#     return response
 
 
 @app.post("/proxy")
 async def proxy(data: dict, project=Depends(get_project_key)):
+    """
+        Proxies requests to external AI APIs using the project-specific API key. Currently, this supports OpenAI,
+        with plans to include Gemini in the future.
+
+        This endpoint acts as a middleman, forwarding requests from the client to the specified AI API (OpenAI for now)
+        and returning the response. It requires the client to specify the HTTP method, endpoint of the AI API,
+        and any necessary request body. The project-specific API key is used for authorization with the AI API.
+
+        Parameters:
+        - data (dict): A dictionary containing the 'method' (HTTP method), 'endpoint' (AI API endpoint),
+          and 'body' (request body for POST requests).
+        - project (ProjectKey): The project key object obtained from dependency injection, used to authenticate
+          the request with the AI API.
+
+        Returns:
+        - dict: The JSON response from the AI API. If the HTTP method is not supported, returns a message indicating
+          that the method is not supported.
+        """
     if data['method'] == 'POST':
         response = requests.post('https://api.openai.com/v1' + data['endpoint'], headers={
             "Content-Type": "application/json",

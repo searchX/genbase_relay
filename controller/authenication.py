@@ -1,34 +1,15 @@
-import asyncio
-import os
-from pathlib import Path
-from datetime import datetime, timedelta
-from typing import Union, Any, Optional, Dict
-
-import bcrypt
-from fastapi import HTTPException, Header
-from jose import jwt
-import bcrypt
-from dotenv import load_dotenv
-from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
-from fastapi_mail.errors import ConnectionErrors
-from itsdangerous import URLSafeTimedSerializer, BadTimeSignature, SignatureExpired
-from pydantic import EmailStr
-
-from database.engine import db
-from pydantic_models.user_auth import SystemUser, TokenPayload, ReturnProjectKey
-from utils.contants import ACCESS_TOKEN_EXPIRE_MINUTES, ALGORITHM, JWT_SECRET_KEY, JWT_REFRESH_SECRET_KEY, \
-    REFRESH_TOKEN_EXPIRE_MINUTES
 from datetime import datetime
 from typing import Union, Any
 
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, APIKeyHeader, HTTPAuthorizationCredentials, HTTPBearer
+from fastapi.security import OAuth2PasswordBearer, HTTPAuthorizationCredentials, HTTPBearer
 from jose import jwt
 from pydantic import ValidationError
 
+from database.engine import db
+from pydantic_models.user_auth import SystemUser, TokenPayload, ReturnProjectKey
+from utils.contants import ALGORITHM, JWT_SECRET_KEY
 from utils.utils import get_hashed_password
-
-token_algo = URLSafeTimedSerializer(os.getenv("JWT_SECRET_KEY"), salt='Email_Verification_&_Forgot_password')
 
 reuseable_oauth = OAuth2PasswordBearer(
     tokenUrl="/login",
@@ -37,6 +18,22 @@ reuseable_oauth = OAuth2PasswordBearer(
 
 
 async def get_current_user(token: str = Depends(reuseable_oauth)) -> SystemUser:
+    """
+       Retrieves the currently authenticated user based on the provided JWT token.
+
+       This function decodes the JWT token to extract the user's identity (email) and queries the database to retrieve the user's details. If the token is expired or invalid, it raises an HTTPException with the appropriate status code and detail message. It ensures that only valid and authenticated requests can fetch user data.
+
+       Parameters:
+       - token (str): The JWT token obtained during user authentication.
+
+       Returns:
+       - SystemUser: A Pydantic model instance containing the authenticated user's details.
+
+       Raises:
+       - HTTPException: With status code 401 (Unauthorized) if the token is expired.
+       - HTTPException: With status code 403 (Forbidden) if the token is invalid.
+       - HTTPException: With status code 404 (Not Found) if the user does not exist in the database.
+       """
     try:
         payload = jwt.decode(
             token, JWT_SECRET_KEY, algorithms=[ALGORITHM]
@@ -68,17 +65,53 @@ async def get_current_user(token: str = Depends(reuseable_oauth)) -> SystemUser:
 
 
 async def get_user(email):
+    """
+     Retrieves a user from the database based on their email address.
+
+     This function queries the database for a user with the specified email. If a user with the given email exists, it returns the user's details; otherwise, it returns None. This function is primarily used for authentication purposes, to verify if a user exists before proceeding with login or signup operations.
+
+     Parameters:
+     - email (str): The email address of the user to retrieve.
+
+     Returns:
+     - dict[str, Any] | None: A dictionary containing the user's details if found, otherwise None.
+     """
     return await db.user.find_unique(where={
         'email': email})
 
 
 async def get_project(id):
+    """
+    Retrieves a project from the database based on its unique identifier.
+
+    This function queries the database for a project with the specified ID. If a project with the given ID exists, it returns the project's details; otherwise, it returns None. This function is used to fetch project information for various operations within the system.
+
+    Parameters:
+    - id (str): The unique identifier of the project to retrieve.
+
+    Returns:
+    - dict[str, Any] | None: A dictionary containing the project's details if found, otherwise None.
+    """
     return await db.projects.find_unique(where={
         "id": id
     })
 
 
 async def create_user(user):
+    """
+      Creates a new user in the database.
+
+      This function attempts to create a new user with the provided details. Before creating the user, it checks if a user with the same email already exists in the database to avoid duplicates. If the user already exists, it raises an HTTPException. Otherwise, it creates the user with hashed password and returns a success message.
+
+      Parameters:
+      - user (UserCreate): A Pydantic model instance containing the user's details such as email, password, first name, and last name.
+
+      Returns:
+      - dict[str, str]: A dictionary containing the email of the newly created user and a status message indicating successful creation.
+
+      Raises:
+      - HTTPException: With status code 400 (Bad Request) if the user already exists.
+      """
     if await db.user.find_unique(where={'email': user.email}):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -101,6 +134,23 @@ security = HTTPBearer()
 
 
 async def get_project_key(token: HTTPAuthorizationCredentials = Depends(security)) -> ReturnProjectKey:
+    """
+       Retrieves the project key based on the provided JWT token.
+
+       This function decodes the JWT token to extract the project's unique identifier and queries the database to retrieve the project's key. If the token is expired or invalid, it raises an HTTPException with the appropriate status code and detail message. It ensures that only valid and authenticated requests can fetch the project key.
+
+       Parameters:
+       - token (HTTPAuthorizationCredentials): The JWT token obtained during project authentication.
+
+       Returns:
+       - ReturnProjectKey: A Pydantic model instance containing the project's key.
+
+       Raises:
+       - HTTPException: With status code 401 (Unauthorized) if the token is expired.
+       - HTTPException: With status code 403 (Forbidden) if the token is invalid.
+       - HTTPException: With status code 404 (Not Found) if the project does not exist in the database.
+       """
+
     token_str = token.credentials  # Get the actual token string
     print(token_str)
     try:
@@ -131,62 +181,3 @@ async def get_project_key(token: HTTPAuthorizationCredentials = Depends(security
         )
 
     return ReturnProjectKey(**dict(project))
-
-# config = ConnectionConfig(
-#     MAIL_USERNAME=os.getenv('MAIL_USER_NAME'),
-#     MAIL_PASSWORD=os.getenv('MAIL_PASSWORD'),
-#     MAIL_FROM=os.getenv('MAIL_FROM'),
-#     MAIL_PORT=os.getenv('MAIL_PORT'),
-#     MAIL_SERVER=os.getenv('MAIL_SERVER'),
-#     MAIL_STARTTLS=True,  # Changed from MAIL_TLS
-#     MAIL_SSL_TLS=False,  # Changed from MAIL_SSL
-#     TEMPLATE_FOLDER=Path(__file__).parent.parent / 'templates/'
-# )
-#
-#
-# async def send_email_async(subject: str, email_to: EmailStr, body: dict, template: str, subtype: str = "plain"):
-#     message = MessageSchema(
-#         subject=subject,
-#         recipients=[email_to, ],
-#         template_body=body,
-#         subtype=subtype  # Add this line
-#     )
-#     fm = FastMail(config)
-#     print("Email is being sent to " + email_to)
-#     try:
-#         await fm.send_message(message, template_name=template)
-#         return True
-#     except ConnectionErrors as e:
-#         print(e)
-#         return False
-#
-#
-#
-# email_verification_endpoint = f'{os.getenv("FRONTEND_URL")}confirm_email?token={123}'
-# if __name__ == "__main__":
-#     email = "abhinandansingla48@gmail.com"
-#     asyncio.run(send_email_async(
-#         subject="Email Verification: Registration Confirmation", subtype="html",
-#         email_to=email, body={
-#             'email': email,
-#             'project_name': os.getenv('PROJECT_NAME'),
-#             'url': email_verification_endpoint
-#         }, template='email/email_verification.html'))
-
-
-# def token(email: EmailStr):
-#     _token = token_algo.dumps(email)
-#     return _token
-#
-#
-# def verify_token(_token: str):
-#     try:
-#         email = token_algo.loads(_token, max_age=1800)
-#     except SignatureExpired:
-#         return None
-#     except BadTimeSignature:
-#         return None
-#     except Exception:
-#         return None
-#     return {'email': email, 'check': True}
-#

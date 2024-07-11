@@ -11,8 +11,6 @@ import {Collapse} from "@mui/material";
 import {CargoTable} from "./CargoTable";
 
 
-
-
 export default function BasicCard({
 
                                       index,
@@ -131,7 +129,7 @@ export default function BasicCard({
 
 
                     </Collapse>
-                    </TableRow>
+                </TableRow>
             </CardContent>
         </Card>
     );
@@ -151,4 +149,4 @@ BasicCard.propTypes = {
     receiver_information: PropTypes.any,
     pickUp_information: PropTypes.any,
     dropOff_information: PropTypes.any,
-  };
+};

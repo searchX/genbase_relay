@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react';
-import { Navigate, Outlet, useRoutes } from 'react-router-dom';
+import {lazy, Suspense} from 'react';
+import {Navigate, Outlet, useRoutes} from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
 
@@ -16,52 +16,52 @@ export const ForgotPassword = lazy(() => import('src/sections/Login/ForgotPasswo
 export const ResetPassword = lazy(() => import('src/sections/Login/reset_password'));
 
 export default function Router() {
-  return useRoutes([
-    {
-      element: (
-        <DashboardLayout>
-          <Suspense>
-            <PrivateRoute>
-              <Outlet />
-            </PrivateRoute>
-          </Suspense>
-        </DashboardLayout>
-      ),
-      children: [
-        { path: '/', element: <IndexPage />, index: true },
-        { path: 'projects', element: <ProjectsLoadPage /> },
-      ],
-    },
-    {
-      path: 'login',
-      element: <LoginView />,
+    return useRoutes([
+        {
+            element: (
+                <DashboardLayout>
+                    <Suspense>
+                        <PrivateRoute>
+                            <Outlet/>
+                        </PrivateRoute>
+                    </Suspense>
+                </DashboardLayout>
+            ),
+            children: [
+                {path: '/', element: <IndexPage/>, index: true},
+                {path: 'projects', element: <ProjectsLoadPage/>},
+            ],
+        },
+        {
+            path: 'login',
+            element: <LoginView/>,
 
-    }, {
-      path: 'verification',
-      element: <VerificationPage />,
+        }, {
+            path: 'verification',
+            element: <VerificationPage/>,
 
-    }, {
-      path: 'confirm_email',
-      element: <EmailConfirmationPage />,
-    },
-    {
-      path: 'signup',
-      element: <Signup />,
-    }, {
-      path: 'forgot_password',
-      element: <ForgotPassword />,
-    },
-    {
-      path: 'reset_password',
-      element: <ResetPassword />,
-    },
-    {
-      path: '404',
-      element: <Page404 />,
-    },
-    {
-      path: '*',
-      element: <Navigate to="/404" replace />,
-    },
-  ]);
+        }, {
+            path: 'confirm_email',
+            element: <EmailConfirmationPage/>,
+        },
+        {
+            path: 'signup',
+            element: <Signup/>,
+        }, {
+            path: 'forgot_password',
+            element: <ForgotPassword/>,
+        },
+        {
+            path: 'reset_password',
+            element: <ResetPassword/>,
+        },
+        {
+            path: '404',
+            element: <Page404/>,
+        },
+        {
+            path: '*',
+            element: <Navigate to="/404" replace/>,
+        },
+    ]);
 }

@@ -1,25 +1,43 @@
-from fastapi import status, HTTPException, Depends, APIRouter, BackgroundTasks
+from fastapi import status, HTTPException, Depends, APIRouter
 from fastapi.security import OAuth2PasswordRequestForm
+
 from controller.authenication import create_user, get_current_user, get_user
 from database.engine import db
 from pydantic_models.user_auth import UserAuth, SystemUser, UserOut, ProjectAuth
-from utils.utils import create_access_token, create_refresh_token, verify_password, get_hashed_password
+from utils.utils import create_access_token, create_refresh_token, verify_password
 
 app = APIRouter(tags=['Authentication'])
 
 
-#
-# @app.get('/me', summary='Get details of currently logged in user', response_model=UserOut)
-# async def get_me(user: SystemUser = Depends(get_current_user)):
-#     return user
-#
 @app.get('/me', summary='Get details of currently logged in user', response_model=UserOut)
 async def get_me(user: SystemUser = Depends(get_current_user)):
+    """
+      Retrieves the details of the currently logged-in user.
+
+      This endpoint requires authentication and returns the details of the user who is currently authenticated. It is useful for fetching the profile information of the logged-in user to display or for other operations that require user-specific data.
+
+      Parameters:
+      - user (SystemUser): The currently authenticated user, automatically determined through dependency injection.
+
+      Returns:
+      - UserOut: A Pydantic model instance containing the user's details such as email, name, and roles.
+      """
     return user
 
 
 @app.post('/signup', summary="Create new user")
 async def signup(data: UserAuth):
+    """
+       Creates a new user account with the provided user details.
+
+       This endpoint is responsible for registering a new user in the system. It takes a UserAuth model containing the user's email, password, and any other required information. The password is hashed before storing it in the database for security reasons. If the user is successfully created, a success message is returned. In case of any error (e.g., email already exists), an appropriate error message is returned.
+
+       Parameters:
+       - data (UserAuth): A Pydantic model instance containing the user's authentication details such as email and password.
+
+       Returns:
+       - dict: A dictionary containing a message indicating the result of the operation. On success, it might return a message indicating successful account creation. On failure, it will return an error message detailing the reason for the failure.
+       """
     try:
         return await create_user(data)
     except Exception as e:
@@ -28,6 +46,19 @@ async def signup(data: UserAuth):
 
 @app.post('/login', summary="Create access and refresh tokens for user")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    """
+      Authenticates a user and provides access and refresh tokens.
+
+      This endpoint is responsible for authenticating users based on their email and password. Upon successful authentication, it generates and returns an access token and a refresh token. The access token is used for accessing protected routes, while the refresh token can be used to obtain a new access token when the current one expires.
+      These endpoints deal with website for handling authentication.
+
+      Parameters:
+      - form_data (OAuth2PasswordRequestForm): A form containing the user's email and password.
+
+      Returns:
+      - dict: A dictionary containing the access token and refresh token.
+    """
+
     user = await get_user(form_data.username)
     if user is None:
         raise HTTPException(
@@ -40,7 +71,6 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Email not verified"
         )
-    print(user)
     hashed_pass = user.password
     if not verify_password(form_data.password, hashed_pass):
         raise HTTPException(
@@ -55,6 +85,17 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
 
 @app.post('/project/auth/login')
 async def project_login(data: ProjectAuth):
+    """
+       Authenticates a project using its unique project key and provides an access token.
+
+       This endpoint is designed for project-specific authentication, allowing access to project-based operations and data. It requires a ProjectAuth model containing the project's unique key. Upon successful authentication, it generates and returns an access token.
+       This endpoint is used by genbase client library for communication with the server.
+       Parameters:
+       - data (ProjectAuth): A Pydantic model instance containing the project's unique key.
+
+       Returns:
+       - dict: A dictionary containing the access token for the authenticated project.
+       """
     data = await db.projects.find_unique(where={'project_key': data.project_key})
     if data is None:
         raise HTTPException(
@@ -65,124 +106,3 @@ async def project_login(data: ProjectAuth):
     return {
         "access_token": create_access_token(data.id),
     }
-# @app.post('/confirm-email', status_code=status.HTTP_202_ACCEPTED)
-# async def confirm_email(_token: str):
-#     email = verify_token(_token)
-#     if email is None:
-#         raise HTTPException(
-#             status_code=status.HTTP_400_BAD_REQUEST,
-#             detail="Invalid Token"
-#         )
-#     cursor = connection.get_cursor()
-#     try:
-#         cursor.execute(
-#             "UPDATE company SET is_verified = TRUE WHERE email = %s",
-#             (email['email'],)
-#         )
-#         connection.commit()
-#     except Exception as e:
-#         connection.rollback()
-#         raise HTTPException(status_code=501, detail=str(e))
-#     finally:
-#         cursor.close()
-#     return "Email Verified Successfully"
-#
-#
-# @app.post('/resend-verification', status_code=status.HTTP_201_CREATED)
-# async def resend_verification(email: str):
-#     user = get_user_by_email(email)
-#     if user is None:
-#         raise HTTPException(
-#             status_code=status.HTTP_400_BAD_REQUEST,
-#             detail="User with this email does not exist"
-#         )
-#     if user['is_verified']:
-#         raise HTTPException(
-#             status_code=status.HTTP_400_BAD_REQUEST,
-#             detail="User is already verified"
-#         )
-#     _token = token(email)
-#     email_verification_endpoint = f'{os.getenv("FRONTEND_URL")}confirm_email?token={_token}'
-#     mail_body = {
-#         'email': email,
-#         'project_name': os.getenv('PROJECT_NAME'),
-#         'url': email_verification_endpoint
-#     }
-#     mail_status = await send_email_async(
-#         subject="Email Verification: Registration Confirmation",
-#         email_to=email, body=mail_body, template='email/email_verification.html', subtype='html')
-#     if mail_status:
-#         return {
-#             "message": "Email Verification has been sent, kindly check your inbox. If you don't see it, check your spam folder. If you still don't see it, kindly reach out to the server guy. or use the TOKEN=" + _token,
-#             "status": status.HTTP_201_CREATED
-#         }
-#     else:
-#         return {
-#             "message": "Email Verification failed to send, kindly reach out to the server guy.",
-#             "status": status.HTTP_503_SERVICE_UNAVAILABLE
-#         }
-#
-#
-# class ResetPasswordRequest(BaseModel):
-#     email: str
-#
-# @app.post('/forgot-password')
-# async def forgot_password(request: ResetPasswordRequest, background_tasks: BackgroundTasks):
-#     user = get_user_by_email(request.email)
-#     if user is None:
-#         raise HTTPException(
-#             status_code=400,
-#             detail="User with this email does not exist"
-#         )
-#
-#     reset_token = token(request.email)
-#     print(reset_token)
-#     reset_password_endpoint = f'{os.getenv("FRONTEND_URL")}reset_password?token={reset_token}'
-#     mail_body = {
-#         'email': request.email,
-#         'project_name': os.getenv('PROJECT_NAME'),
-#         'url': reset_password_endpoint
-#     }
-#
-#     background_tasks.add_task(
-#         send_email_async,
-#         subject="Password Reset Request",
-#         email_to=request.email,
-#         body=mail_body,
-#         template='email/password_reset.html',
-#         subtype='html'
-#     )
-#
-#     return {
-#         "message": "Password reset link has been sent to your email.",
-#         "status": 200
-#     }
-#
-#
-# class ResetPassword(BaseModel):
-#     token: str
-#     new_password: str
-#
-# @app.post('/reset_password')
-# async def reset_password(data: ResetPassword):
-#     email = verify_token(data.token)
-#     print(email)
-#     if email is None:
-#         raise HTTPException(
-#             status_code=status.HTTP_400_BAD_REQUEST,
-#             detail="Invalid Token"
-#         )
-#     cursor = connection.get_cursor()
-#     try:
-#         hashed_password = get_hashed_password(data.new_password)
-#         cursor.execute(
-#             "UPDATE company SET password = %s WHERE email = %s",
-#             (hashed_password, email['email'],)
-#         )
-#         connection.commit()
-#     except Exception as e:
-#         connection.rollback()
-#         raise HTTPException(status_code=501, detail=str(e))
-#     finally:
-#         cursor.close()
-#     return "Password Reset Successfully"

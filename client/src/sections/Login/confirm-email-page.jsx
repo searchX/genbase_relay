@@ -1,5 +1,5 @@
 import {useLocation, useNavigate} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {confirmEmail} from "../../utils/apis";
 
 const EmailVerificationPage = () => {

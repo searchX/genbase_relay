@@ -36,7 +36,7 @@ export default function AccountPopover() {
     const handleOpen = (event) => {
         setOpen(event.currentTarget);
     };
-    const {setToken, setCompanyId,email} = useContext(UserContext);
+    const {setToken, setCompanyId, email} = useContext(UserContext);
     const handleClose = () => {
         setOpen(null);
         setToken(null);

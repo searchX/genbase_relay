@@ -3,32 +3,32 @@ import PropTypes from 'prop-types';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 
-export default function ProjectTableRow({ i, id, selected, handleClick, name, description, project_key, created_at }) {
-  return (
-    <>
-      <TableRow sx={{
-        cursor:'pointer'
-      }} hover onClick={handleClick} tabIndex={-1} role="checkbox" selected={selected}>
-        <TableCell align="center">
-          {i + 1}
-        </TableCell>
-        {/* <TableCell onClick={() => setOpen((v) => !v)}>{loadNumber}</TableCell> */}
-        {/* <TableCell onClick={() => setOpen((v) => !v)} align="center">{rate}</TableCell> */}
-        <TableCell component="th" scope="row">
-          {name}
-        </TableCell>
-        <TableCell component="th" scope="row">
-          -
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {project_key}
-        </TableCell>
-        <TableCell>
-          {created_at}
-        </TableCell>
-      </TableRow>
-    </>
-  );
+export default function ProjectTableRow({i, id, selected, handleClick, name, description, project_key, created_at}) {
+    return (
+        <>
+            <TableRow sx={{
+                cursor: 'pointer'
+            }} hover onClick={handleClick} tabIndex={-1} role="checkbox" selected={selected}>
+                <TableCell align="center">
+                    {i + 1}
+                </TableCell>
+                {/* <TableCell onClick={() => setOpen((v) => !v)}>{loadNumber}</TableCell> */}
+                {/* <TableCell onClick={() => setOpen((v) => !v)} align="center">{rate}</TableCell> */}
+                <TableCell component="th" scope="row">
+                    {name}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                    -
+                </TableCell>
+                <TableCell component="th" scope="row">
+                    {project_key}
+                </TableCell>
+                <TableCell>
+                    {created_at}
+                </TableCell>
+            </TableRow>
+        </>
+    );
 }
 
 // export default function ProjectTableRow({
@@ -202,12 +202,12 @@ export default function ProjectTableRow({ i, id, selected, handleClick, name, de
 // }
 
 ProjectTableRow.propTypes = {
-  i: PropTypes.any,
-  id: PropTypes.any,
-  selected: PropTypes.any,
-  handleClick: PropTypes.any,
-  created_at: PropTypes.string,
-  name: PropTypes.string,
-  description: PropTypes.string,
-  project_key: PropTypes.string,
+    i: PropTypes.any,
+    id: PropTypes.any,
+    selected: PropTypes.any,
+    handleClick: PropTypes.any,
+    created_at: PropTypes.string,
+    name: PropTypes.string,
+    description: PropTypes.string,
+    project_key: PropTypes.string,
 };

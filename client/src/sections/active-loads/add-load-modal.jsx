@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Modal from '@mui/material/Modal';
 import {Box, Button, CircularProgress, Select, Stack, TextField, Typography} from '@mui/material';
 import IconButton from "@mui/material/IconButton";
@@ -6,11 +6,9 @@ import {Close} from "@mui/icons-material";
 import {useFormik} from "formik";
 import PropTypes from "prop-types";
 import MenuItem from "@mui/material/MenuItem";
-import LoadingButton from "@mui/lab/LoadingButton";
-import {AddProject, getprojectsLoaded} from "../../redux/actions/actions";
+import {AddProject} from "../../redux/actions/actions";
 import {useDispatch} from "react-redux";
 import {UserContext} from "../../context/UserContext";
-import {S3_P} from "../../utils/contants";
 
 const AddNewProjectsModal = ({open, onClose}) => {
     const initialLoad = {
@@ -116,7 +114,7 @@ const AddNewProjectsModal = ({open, onClose}) => {
                     </IconButton>
                 </Stack>
                 <form onSubmit={formik.handleSubmit}>
- 
+
                     <div style={{
                         padding: '4px',
                     }}>
@@ -191,7 +189,7 @@ const AddNewProjectsModal = ({open, onClose}) => {
                                    value={formik.values.keys_information.key_value}
                                    onChange={formik.handleChange} variant="outlined"/>
                     </Box>
-                    
+
                     <Stack direction="row" spacing={2} my={1}>
                         <Button fullWidth variant="contained" color="primary" type="submit" sx={{m: '10px'}}>
                             Add Project

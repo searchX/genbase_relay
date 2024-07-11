@@ -5,7 +5,7 @@ export default function ProjectsLoadPage() {
     return (
         <>
             <Helmet>
-                <title> Projects  </title>
+                <title> Projects </title>
             </Helmet>
 
             <ProjectView/>

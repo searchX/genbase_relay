@@ -8,8 +8,8 @@ import PropTypes from 'prop-types'; // Import PropTypes
 export const CargoTable = ({
                                heading,
                                data
-                           }) => 
-     (
+                           }) =>
+    (
         <Table sx={{
             mt: 2
         }} size="small" aria-label="purchases">
@@ -28,7 +28,7 @@ export const CargoTable = ({
 
             </TableBody>
         </Table>
-        )
+    )
 
 // Define propTypes
 CargoTable.propTypes = {
